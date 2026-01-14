@@ -1,0 +1,6 @@
+# Sample test inputs for Personal Information Manager
+# Format: Name, Age, City, Hobby, Favorite Food, Favorite Color
+
+1.Sanskar, 21, Dubai, Gaming, Misal pav, Blue 
+2.Hussen, 20, Dubai, Sleeping, Pav Bhaji, Black
+3.Vaibhav, 20, Dubai, Photography, Missal pav, Blue
