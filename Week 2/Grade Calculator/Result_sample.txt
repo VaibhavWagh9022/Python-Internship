@@ -1,0 +1,47 @@
+--------------------------------------------------
+      STUDENT GRADE CALCULATOR
+--------------------------------------------------
+
+Enter number of students: 3
+
+--- STUDENT 1 ---
+Student name: Hussen
+Enter marks (0-100):
+Math: 100
+Science: 90
+English: 70
+
+--- STUDENT 2 ---
+Student name: Sanskar
+Enter marks (0-100):
+Math: 100
+Science: 92
+English: 75
+
+--- STUDENT 3 ---
+Student name: Vaibhav
+Enter marks (0-100):
+Math: 100
+Science: 100
+English: 100
+
+--------------------------------------------------
+            RESULTS SUMMARY
+--------------------------------------------------
+Name                 |   Avg | Grade | Comment
+------------------------------------------------------------
+Hussen               |  86.7 |   B   | Very Good! 
+Sanskar              |  89.0 |   B   | Very Good! 
+Vaibhav              | 100.0 |   A   | Excellent!
+
+--------------------------------------------------
+          CLASS STATISTICS
+--------------------------------------------------
+Total Students: 3
+Class Average: 91.9
+Highest Average: 100.0 (Vaibhav)
+Lowest Average: 86.7 (Hussen)
+
+--------------------------------------------------
+Thank you for using the Grade Calculator!
+--------------------------------------------------
