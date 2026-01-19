@@ -1,5 +1,5 @@
 --- STUDENT 1 ---
-Student name: Hussen
+Student name: Vaibhav
 Enter marks (0-100):
 English: 100
 
@@ -13,7 +13,7 @@ English: 70
 English: 100
 
 --- STUDENT 3 ---
-Student name: Sanskar
+Student name: Hussen
 Enter marks (0-100):
 Math: 100
 Science: 80
