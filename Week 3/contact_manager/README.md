@@ -49,7 +49,7 @@ This is a **command-line based application** that allows users to store, search,
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/VaibhavWagh9022/Python-Internship>
+git clone https://github.com/VaibhavWagh9022/Python-Internship
 
 cd week3/contact_manager
 
