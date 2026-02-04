@@ -212,7 +212,7 @@ After completing this project, you will be able to:
 ## 👨‍🎓 Author
 
 **Vaibhav Wagh**  
-Computer Engineering Student  
+Computer Engineering Student.  
 
 
 ---
