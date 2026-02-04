@@ -34,7 +34,7 @@ The project demonstrates **real-world usage of Python file handling concepts** t
 
 ## 🛠️ Technologies Used
 
-- **Language:** Python 3.x  
+- **Language:** Python 3.13.7
 - **File Formats:** JSON, CSV  
 - **Concepts:**  
   - File Handling  
@@ -49,31 +49,31 @@ The project demonstrates **real-world usage of Python file handling concepts** t
 ```
 week4-finance-tracker/
 │
-├── run.py # Entry point of application
-├── requirements.txt # Dependencies (none required)
-├── README.md # Project documentation
+├── run.py 
+├── requirements.txt
+├── README.md
 │
-├── finance_tracker/ # Core application modules
+├── finance_tracker/
 │ ├── init.py
-│ ├── main.py # Menu system and app flow
-│ ├── expense.py # Expense class & validation
-│ ├── expense_manager.py # Expense collection logic
-│ ├── file_handler.py # JSON/CSV file operations
-│ ├── reports.py # Reports & statistics
-│ └── utils.py # Helper utilities
+│ ├── main.py
+│ ├── expense.py 
+│ ├── expense_manager.py
+│ ├── file_handler.py
+│ ├── reports.py
+│ └── utils.py
 │
 ├── data/
-│ ├── expenses.json # Stored expense data
-│ ├── backup/ # Backup files
-│ └── exports/ # CSV exports
+│ ├── expenses.json 
+│ ├── backup/ 
+│ └── exports/ 
 │
 └── tests/
-├── test_expense.py # Unit tests
+├── test_expense.py 
 ├── test_file_handler.py
 └── test_reports.py
 
 ```
-
+---
 
 ## ⚙️ Features Implemented
 
@@ -113,20 +113,17 @@ week4-finance-tracker/
 ## ▶️ How to Run the Project
 
 ### Step 1: Clone or Download
-
-git clone <https://github.com/VaibhavWagh9022/Python-Internship.git>
 ```bash
-cd week4
+git clone https://github.com/VaibhavWagh9022/Python-Internship.git
+
+cd Week 4
+
 pip install -r requirements.txt
-
 ```
-### step 2: Run the application
+### Step 2: Run the Application
 ```bash
-
-python3 run.py
-
+python run.py
 ```
-
 ---
 
 ## 🧭 Sample Menu
@@ -154,10 +151,9 @@ Basic unit tests are provided in the `tests/` folder.
 
 To run tests:
 ```bash
-#On new terminal
-python -m pytest tests/
+# On new terminal
+python -m pytest 
 ```
-
 ---
 
 ## 📦 Data Storage Details
@@ -211,9 +207,7 @@ After completing this project, you will be able to:
 
 ## 👨‍🎓 Author
 
-**Vaibhav Wagh**  
-Computer Engineering Student.  
-
+**Vaibhav wagh**  
+Computer Engineering Student  
 
 ---
-

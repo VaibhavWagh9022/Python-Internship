@@ -1,6 +1,5 @@
 from finance_tracker.expense import Expense
 
-
 class ExpenseManager:
     def __init__(self):
         self.expenses = []
