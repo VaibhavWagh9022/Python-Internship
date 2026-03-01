@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}My Flask Blog{% endblock %}</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- ================================================================== NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">
+      <i class="bi bi-journal-richtext me-1"></i>My Blog
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navContent">
+      <!-- Search form -->
+      <form class="d-flex ms-auto me-3" action="{{ url_for('main.search') }}" method="get">
+        <input class="form-control form-control-sm me-2" type="search"
+               name="q" placeholder="Search posts…" value="{{ request.args.get('q','') }}">
+        <button class="btn btn-outline-light btn-sm" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+
+      <!-- Nav links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('main.index') }}">
+            <i class="bi bi-house me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('posts.index') }}">
+            <i class="bi bi-collection me-1"></i>Posts
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('main.contact') }}">Contact</a>
+        </li>
+
+        {% if current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link btn btn-primary btn-sm text-white ms-2 px-3"
+               href="{{ url_for('posts.create') }}">
+              <i class="bi bi-plus-lg me-1"></i>New Post
+            </a>
+          </li>
+          <li class="nav-item dropdown ms-2">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle me-1"></i>{{ current_user.username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="{{ url_for('auth.profile', username=current_user.username) }}">
+                  <i class="bi bi-person me-2"></i>Profile
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{{ url_for('auth.edit_profile') }}">
+                  <i class="bi bi-pencil me-2"></i>Edit Profile
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger" href="{{ url_for('auth.logout') }}">
+                  <i class="bi bi-box-arrow-right me-2"></i>Logout
+                </a>
+              </li>
+            </ul>
+          </li>
+        {% else %}
+          <li class="nav-item ms-2">
+            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-light btn-sm ms-1 px-3"
+               href="{{ url_for('auth.register') }}">Register</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ================================================================== FLASH MESSAGES -->
+<div class="container mt-3">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endwith %}
+</div>
+
+<!-- ================================================================== MAIN CONTENT -->
+<main class="container my-4">
+  <div class="row">
+    <!-- Content column -->
+    <div class="{% block content_class %}col-lg-8{% endblock %}">
+      {% block content %}{% endblock %}
+    </div>
+
+    <!-- Sidebar -->
+    {% block sidebar %}
+    <aside class="col-lg-4">
+      <!-- About widget -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-journal-richtext fs-1 text-primary"></i>
+          <h5 class="card-title mt-2">My Flask Blog</h5>
+          <p class="card-text text-muted small">
+            A personal blog built with Python &amp; Flask. Sharing code, ideas, and tutorials.
+          </p>
+        </div>
+      </div>
+
+      <!-- Categories widget -->
+      {% if categories is defined %}
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header fw-semibold"><i class="bi bi-folder me-2"></i>Categories</div>
+        <ul class="list-group list-group-flush">
+          {% for cat in categories %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('main.category', slug=cat.slug) }}" class="text-decoration-none">
+              {{ cat.name }}
+            </a>
+            <span class="badge bg-primary rounded-pill">{{ cat.posts.count() }}</span>
+          </li>
+          {% else %}
+          <li class="list-group-item text-muted small">No categories yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <!-- Recent posts widget -->
+      {% if recent is defined %}
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header fw-semibold"><i class="bi bi-clock-history me-2"></i>Recent Posts</div>
+        <ul class="list-group list-group-flush">
+          {% for p in recent %}
+          <li class="list-group-item">
+            <a href="{{ url_for('posts.show', slug=p.slug) }}"
+               class="text-decoration-none fw-semibold small">{{ p.title }}</a>
+            <div class="text-muted" style="font-size:.75rem">
+              {{ p.timestamp.strftime('%b %d, %Y') }}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <!-- RSS link -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('main.rss') }}" class="btn btn-outline-warning w-100 btn-sm">
+            <i class="bi bi-rss me-2"></i>Subscribe via RSS
+          </a>
+        </div>
+      </div>
+    </aside>
+    {% endblock %}
+  </div>
+</main>
+
+<!-- ================================================================== FOOTER -->
+<footer class="bg-dark text-light py-4 mt-5">
+  <div class="container text-center">
+    <p class="mb-1">
+      <a href="{{ url_for('main.index') }}" class="text-light text-decoration-none fw-bold">
+        <i class="bi bi-journal-richtext me-1"></i>My Flask Blog
+      </a>
+    </p>
+    <p class="text-muted small mb-0">
+      &copy; {{ now.year if now is defined else 2024 }} My Flask Blog &mdash;
+      Built with <a href="https://flask.palletsprojects.com" class="text-info text-decoration-none">Flask</a>
+      &amp; Bootstrap 5
+    </p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

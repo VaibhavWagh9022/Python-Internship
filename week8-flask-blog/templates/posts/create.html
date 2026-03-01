@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}New Post — My Flask Blog{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block content_class %}col-12{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-9">
+    <h2 class="fw-bold mb-4"><i class="bi bi-plus-circle me-2 text-primary"></i>Create New Post</h2>
+
+    <form method="post" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-8">
+          <label class="form-label fw-semibold">{{ form.title.label }}</label>
+          {{ form.title(class="form-control form-control-lg", placeholder="Enter post title…") }}
+          {% for err in form.title.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">{{ form.category.label }}</label>
+          {{ form.category(class="form-select") }}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">{{ form.slug.label }}</label>
+        {{ form.slug(class="form-control", placeholder="url-friendly-slug") }}
+        <div class="form-text">Auto-generate from title or enter manually.</div>
+        {% for err in form.slug.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">{{ form.summary.label }}</label>
+        {{ form.summary(class="form-control", rows=2, placeholder="Brief description shown in listings…") }}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">{{ form.content.label }}</label>
+        {{ form.content(class="form-control", id="content-editor", rows=16) }}
+        {% for err in form.content.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">{{ form.tags.label }}</label>
+          {{ form.tags(class="form-control", placeholder="python, flask, web-dev") }}
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">{{ form.image.label }}</label>
+          {{ form.image(class="form-control") }}
+        </div>
+      </div>
+
+      <div class="form-check mb-4">
+        {{ form.published(class="form-check-input") }}
+        <label class="form-check-label" for="published">{{ form.published.label }}</label>
+      </div>
+
+      <div class="d-flex gap-2">
+        {{ form.submit(class="btn btn-primary px-4") }}
+        <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary px-4">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Auto-slugify title → slug field
+  const titleField = document.querySelector('[name="title"]');
+  const slugField  = document.querySelector('[name="slug"]');
+  if (titleField && slugField) {
+    titleField.addEventListener('input', () => {
+      if (!slugField.dataset.manual) {
+        slugField.value = titleField.value
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s_-]+/g, '-');
+      }
+    });
+    slugField.addEventListener('input', () => { slugField.dataset.manual = '1'; });
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}About — My Flask Blog{% endblock %}
+{% block sidebar %}{% endblock %}
+{% block content_class %}col-lg-8 mx-auto{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+  <div class="card-body p-5 text-center">
+    <i class="bi bi-journal-richtext text-primary" style="font-size:4rem;"></i>
+    <h2 class="fw-bold mt-3">About My Flask Blog</h2>
+    <p class="lead text-muted mt-3">
+      A personal blog built as the Week 8 project for the Python Programming Curriculum.
+    </p>
+    <hr>
+    <p>
+      This blog was built using <strong>Flask</strong>, <strong>SQLAlchemy</strong>,
+      <strong>Flask-Login</strong>, and <strong>Bootstrap 5</strong>. It demonstrates
+      full-stack web development with Python, including user authentication, CRUD operations,
+      and a commenting system.
+    </p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-2">
+      <i class="bi bi-house me-2"></i>Back to Home
+    </a>
+  </div>
+</div>
+{% endblock %}

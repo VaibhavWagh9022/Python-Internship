@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Flask / SQLite
+instance/
+app.db
+*.db
+
+# Environment variables
+.env
+.flake8
+
+# Migrations (keep folder, ignore auto-generated files if needed)
+# migrations/versions/
+
+# Uploads
+app/static/images/uploads/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
